@@ -1,19 +1,11 @@
-import { useEffect, useState } from 'react'
 import './App.css'
 import StyledInput from './appComponents/StyledInput';
 import Glitch from './appComponents/Glitch';
 
-const now = new Date();
-
-const nn = new Date(now.setSeconds(now.getSeconds() + 10))
-
 function App() {
 
-  const [appare, setAppare] = useState(false)
+  //const [appare, setAppare] = useState(false)
 
-  useEffect(() => {
-    setTimeout(() => setAppare(true), 1000)
-  }, [])
   /*   useEffect(() => {
       const enableFullscreen = () => {
         const elem = document.documentElement; // Seleziona l'intera pagina
