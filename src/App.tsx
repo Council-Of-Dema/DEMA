@@ -100,7 +100,7 @@ function App() {
   }, [stepIndex])
 
   useEffect(() => {
-    setTimeout(() => location.reload(), 10000)
+    //setTimeout(() => location.reload(), 10000)
   }, [])
 
   function sendMessage(text: string) {
@@ -115,6 +115,22 @@ function App() {
     <div >
       <Glitch />
       <main className="content-container">
+        <div style={{
+          transform: 'translate(-50%,-50%)',
+          top: '50%',
+          left: '50%',
+          background: "#000000",
+          display: 'flex',
+          justifyContent: 'center',
+          border: '10px solid #C41E3A',
+          position: 'absolute',
+          width: "50%",
+          margin: 0
+        }}>
+          <h1 style={{ color: '#C41E3A', padding: "0px 40px", margin: 0, fontSize: '50px' }}>
+            5.30PM
+          </h1>
+        </div>
         <dialog open style={{
           width: '40%',
           height: '40%',
