@@ -104,12 +104,15 @@ function App() {
     setTimeout(() => location.reload(), 10000)
   }, [])
 
-  function sendMessage(text: string) {
-    if (text.trim().toLowerCase() === "yes" && steps[stepIndex].type === "waitInput") {
+  function sendMessage(val: string) {
+
+    const text = val.trim().toLowerCase();
+
+    if (text === "yes" && steps[stepIndex].type === "waitInput") {
       setMessages((m) => [...m, { type: "sender", text }]);
       setStepIndex((i) => i + 1);
     }
-    else if (text.trim().toLowerCase() === "found it" && steps[stepIndex].type === "alternate") {
+    else if (text === "found it" && steps[stepIndex].type === "alternate") {
       setMessages((m) => [...m, { type: "sender", text }]);
       setStepIndex((i) => i + 1);
     }
