@@ -25,39 +25,38 @@ const steps: ChatStep[] = [
   { type: "bot", text: "DO NO T WR ITE  AN YTH ING   EL SE", delay: 2600 },
   { type: "bot", text: "I WI LL NO T   RE SP ON D", delay: 2600 },
   { type: "bot", text: "ON LY  YES", delay: 2800 },
+  { type: "bot", text: "DO Y OU UND E RS TAN D?", delay: 2600 },
   { type: "waitInput" },
 
+  { type: "bot", text: "GO OD", delay: 2700 },
   { type: "bot", text: "IT IS HE RE", delay: 2000 },
   { type: "bot", text: "T HE VESS EL", delay: 2000 },
 
-  { type: "bot", text: "ON TH IS FL OO R", delay: 4000 },
+  { type: "bot", text: "ON TH IS FL OO R", delay: 2800 },
 
-  { type: "bot", text: "DO NO T GO UP", delay: 4500 },
-  { type: "bot", text: "ST AY  DO WN", delay: 4500 },
+  { type: "bot", text: "DO NO T GO UP", delay: 3000 },
+  { type: "bot", text: "ST AY  DO WN", delay: 2500 },
 
-  { type: "bot", text: "DO YO U UN DER ST AN D‽", delay: 6000 },
+  { type: "bot", text: "DO YO U UN DER ST AN D‽", delay: 4000 },
   { type: "waitInput" },
   { type: "bot", text: "IT IS IN A   FO RGO TT EN  PL AC E", delay: 2500 },
   { type: "bot", text: "DA RK", delay: 1000 },
   { type: "bot", text: "FI ND IT", delay: 1500 },
   { type: "bot", text: "I AM WA IT ING", delay: 4000 },
-  { type: "bot", text: "ANS WE R", delay: 1000 },
-  { type: "waitInput" },
+
   { type: "bot", text: "YO U KNOW TH AT PL ACE", delay: 1500 },
   { type: "bot", text: "WH ER E DISORDER RU LES", delay: 2500 },
   { type: "bot", text: "LO OK TH ERE", delay: 1700 },
-  { type: "bot", text: "WH Y AR E YO U ST ILL TH ER E", delay: 3500 },
-  { type: "bot", text: "MO VE", delay: 1000 },
-  { type: "bot", text: "I AM ST ILL WA IT ING", delay: 1500 },
-  { type: "bot", text: "FI ND IT", delay: 1000 },
+  { type: "bot", text: "WH Y AR E YO U ST ILL H ER E‽", delay: 3500 },
+  { type: "bot", text: "MO VE!", delay: 1000 },
+  { type: "bot", text: "I AM ST ILL WA IT ING!", delay: 1500 },
+  { type: "bot", text: "FI ND IT!", delay: 1000 },
   { type: "bot", text: "WH EN YO U FI ND IT", delay: 1300 },
   { type: "bot", text: "CO M E  BA CK  TO M E", delay: 1200 },
-  { type: "bot", text: "WR ITE  YE S", delay: 1500 },
-  { type: "bot", text: "ON LY  YE S", delay: 1000 },
-  { type: "waitInput" },
+  { type: "alternate" },
   { type: "bot", text: "GO OD", delay: 1000 },
   { type: "bot", text: "FI NA LL Y", delay: 1000 },
-  { type: "bot", text: "WELCOME TO DEMA GIORGIA", delay: 5000 },
+  { type: "bot", text: "WELCOME TO DEMA GIORGIA", delay: 3500 },
 ];
 
 export type Message = {
@@ -67,7 +66,8 @@ export type Message = {
 
 type ChatStep =
   | { type: "bot"; text: string; delay?: number }
-  | { type: "waitInput" };
+  | { type: "waitInput" }
+  | { type: "alternate" }
 
 function App() {
 
@@ -76,7 +76,7 @@ function App() {
 
   const ref = useRef<HTMLDivElement | null>(null);
 
-
+  //TODO: scommenta
   /*   useEffect(() => {
       if (stepIndex >= steps.length || closed) return;
   
@@ -100,11 +100,16 @@ function App() {
   }, [stepIndex])
 
   useEffect(() => {
+    //TODO: commenta
     setTimeout(() => location.reload(), 10000)
   }, [])
 
   function sendMessage(text: string) {
-    if (text.trim().toLowerCase() === "yes") {
+    if (text.trim().toLowerCase() === "yes" && steps[stepIndex].type === "waitInput") {
+      setMessages((m) => [...m, { type: "sender", text }]);
+      setStepIndex((i) => i + 1);
+    }
+    else if (text.trim().toLowerCase() === "found it" && steps[stepIndex].type === "alternate") {
       setMessages((m) => [...m, { type: "sender", text }]);
       setStepIndex((i) => i + 1);
     }
@@ -115,6 +120,7 @@ function App() {
     <div >
       <Glitch />
       <main className="content-container">
+        {/* TODO: commenta */}
         <div style={{
           transform: 'translate(-50%,-50%)',
           top: '50%',
@@ -131,15 +137,16 @@ function App() {
             5.30PM
           </h1>
         </div>
-        <dialog open style={{
+        {/* TODO:scommenta  
+       <dialog open style={{
           width: '40%',
           height: '40%',
           transform: 'translate(-30%,-46%)',
           top: '50%',
           left: '50%',
           position: 'absolute',
-          // display: 'flex',
-          display: "none",
+          display: 'flex',
+
           flexDirection: 'column',
           justifyContent: 'flex-end',
           colorScheme: "dark"
@@ -159,7 +166,7 @@ function App() {
           <div className='input-box'>
             <StyledInput onChange={sendMessage} />
           </div>
-        </dialog>
+        </dialog> */}
       </main>
     </div >
   )
