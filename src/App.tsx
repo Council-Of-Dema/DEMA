@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 import './App.css'
 import StyledInput from './appComponents/StyledInput';
 import Glitch from './appComponents/Glitch';
@@ -11,7 +12,7 @@ const steps: ChatStep[] = [
   { type: "bot", text: "Y OU TO OK Y OU R T I ME", delay: 2600 },
   { type: "bot", text: "W E HA V E A LW A YS WA TC H ED Y OU R D I V ER SI O NS", delay: 3200 },
   { type: "bot", text: "Y OU KN OW W H AT I NE ED", delay: 2600 },
-  { type: "bot", text: "T H E V E S SE L", delay: 2000 },
+  { type: "bot", text: "T H E VESSEL", delay: 2000 },
   { type: "bot", text: "FI ND I T", delay: 2200 },
   { type: "bot", text: "I A M", delay: 3000 },
   { type: "bot", text: "ST IL L WA I T IN G", delay: 3500 },
@@ -27,6 +28,8 @@ const steps: ChatStep[] = [
   { type: "waitInput" },
 
   { type: "bot", text: "IT IS HE RE", delay: 2000 },
+  { type: "bot", text: "T HE VESS EL", delay: 2000 },
+
   { type: "bot", text: "ON TH IS FL OO R", delay: 4000 },
 
   { type: "bot", text: "DO NO T GO UP", delay: 4500 },
@@ -69,32 +72,36 @@ type ChatStep =
 function App() {
 
   const [messages, setMessages] = useState<Message[]>(JSON.parse(window.localStorage.getItem("messages") ?? "[]"));
-  const [stepIndex, setStepIndex] = useState<number>(Number(window.localStorage.getItem("step")));
+  const [stepIndex, setStepIndex] = useState<number>(Number(window.localStorage.getItem("step") ?? 0));
 
   const ref = useRef<HTMLDivElement | null>(null);
 
 
-  useEffect(() => {
-    if (stepIndex >= steps.length) return;
-
-    const step = steps[stepIndex];
-
-    if (step.type === "bot") {
-      const timeout = setTimeout(() => {
-        setMessages((m) => [...m, { type: "receiver", text: step.text }]);
-        setStepIndex((i) => i + 1);
-        window.localStorage.setItem("messages", JSON.stringify([...messages, { type: "receiver", text: step.text }]))
-        window.localStorage.setItem("step", (stepIndex + 1).toString())
-      }, step.delay ?? 500);
-
-      return () => clearTimeout(timeout);
-    }
-
-  }, [stepIndex]);
+  /*   useEffect(() => {
+      if (stepIndex >= steps.length || closed) return;
+  
+      const step = steps[stepIndex];
+  
+      if (step.type === "bot") {
+        const timeout = setTimeout(() => {
+          setMessages((m) => [...m, { type: "receiver", text: step.text }]);
+          setStepIndex((i) => i + 1);
+          window.localStorage.setItem("messages", JSON.stringify([...messages, { type: "receiver", text: step.text }]))
+          window.localStorage.setItem("step", (stepIndex + 1).toString())
+        }, step.delay ?? 500);
+  
+        return () => clearTimeout(timeout);
+      }
+  
+    }, [stepIndex]); */
 
   useEffect(() => {
     ref.current?.scrollIntoView();
   }, [stepIndex])
+
+  useEffect(() => {
+    setTimeout(() => location.reload(), 10000)
+  }, [])
 
   function sendMessage(text: string) {
     if (text.trim().toLowerCase() === "yes") {
@@ -115,7 +122,8 @@ function App() {
           top: '50%',
           left: '50%',
           position: 'absolute',
-          display: 'flex',
+          // display: 'flex',
+          display: "none",
           flexDirection: 'column',
           justifyContent: 'flex-end',
           colorScheme: "dark"
