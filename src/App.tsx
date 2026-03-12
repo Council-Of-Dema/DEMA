@@ -100,7 +100,7 @@ function App() {
   }, [stepIndex])
 
   useEffect(() => {
-    //setTimeout(() => location.reload(), 10000)
+    setTimeout(() => location.reload(), 10000)
   }, [])
 
   function sendMessage(text: string) {
