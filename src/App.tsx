@@ -76,33 +76,27 @@ function App() {
 
   const ref = useRef<HTMLDivElement | null>(null);
 
-  //TODO: scommenta
-  /*   useEffect(() => {
-      if (stepIndex >= steps.length || closed) return;
-  
-      const step = steps[stepIndex];
-  
-      if (step.type === "bot") {
-        const timeout = setTimeout(() => {
-          setMessages((m) => [...m, { type: "receiver", text: step.text }]);
-          setStepIndex((i) => i + 1);
-          window.localStorage.setItem("messages", JSON.stringify([...messages, { type: "receiver", text: step.text }]))
-          window.localStorage.setItem("step", (stepIndex + 1).toString())
-        }, step.delay ?? 500);
-  
-        return () => clearTimeout(timeout);
-      }
-  
-    }, [stepIndex]); */
+  useEffect(() => {
+    if (stepIndex >= steps.length || closed) return;
+
+    const step = steps[stepIndex];
+
+    if (step.type === "bot") {
+      const timeout = setTimeout(() => {
+        setMessages((m) => [...m, { type: "receiver", text: step.text }]);
+        setStepIndex((i) => i + 1);
+        window.localStorage.setItem("messages", JSON.stringify([...messages, { type: "receiver", text: step.text }]))
+        window.localStorage.setItem("step", (stepIndex + 1).toString())
+      }, step.delay ?? 500);
+
+      return () => clearTimeout(timeout);
+    }
+
+  }, [stepIndex]);
 
   useEffect(() => {
     ref.current?.scrollIntoView();
   }, [stepIndex])
-
-  useEffect(() => {
-    //TODO: commenta
-    setTimeout(() => location.reload(), 10000)
-  }, [])
 
   function sendMessage(val: string) {
 
@@ -123,25 +117,8 @@ function App() {
     <div >
       <Glitch />
       <main className="content-container">
-        {/* TODO: commenta */}
-        <div style={{
-          transform: 'translate(-50%,-50%)',
-          top: '50%',
-          left: '50%',
-          background: "#000000",
-          display: 'flex',
-          justifyContent: 'center',
-          border: '10px solid #C41E3A',
-          position: 'absolute',
-          width: "50%",
-          margin: 0
-        }}>
-          <h1 style={{ color: '#C41E3A', padding: "0px 40px", margin: 0, fontSize: '50px' }}>
-            5.30PM
-          </h1>
-        </div>
-        {/* TODO:scommenta  
-       <dialog open style={{
+
+        <dialog open style={{
           width: '40%',
           height: '40%',
           transform: 'translate(-30%,-46%)',
@@ -169,7 +146,7 @@ function App() {
           <div className='input-box'>
             <StyledInput onChange={sendMessage} />
           </div>
-        </dialog> */}
+        </dialog>
       </main>
     </div >
   )
